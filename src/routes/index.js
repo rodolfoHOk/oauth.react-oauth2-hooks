@@ -4,7 +4,7 @@ import OtherRoutes from './otherRoutes';
 
 import SignRoutes from './signRoutes';
 
-function Routes(){
+const Routes = () => {
   const { signed } = useAuth();
 
   return signed ? <OtherRoutes /> : <SignRoutes />;

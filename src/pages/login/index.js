@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../../context/auth';
 
-function Login(){
+const Login = () => {
   const { Login } = useAuth();
 
   function handleLogin(){

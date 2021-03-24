@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../../context/auth';
 
-function Home() {
+const Home = () => {
   const { Logout } = useAuth();
   
   async function handleLogout(){

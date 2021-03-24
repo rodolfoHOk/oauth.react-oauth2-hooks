@@ -5,7 +5,7 @@ import httpClient from '../services/httpClient';
 
 const AuthContext = React.createContext({});
 
-export function AuthProvider ({ children }) {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
