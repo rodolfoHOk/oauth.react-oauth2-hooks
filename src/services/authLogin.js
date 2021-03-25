@@ -1,7 +1,7 @@
 import httpClient, { clientId, clientSecret } from './httpClient';
 import querystring from 'qs';
 
-function authServiceLogin(username, password){
+function authLogin(username, password){
   const url = '/oauth/token';
   const headers = {
     'Content-Type' : 'application/x-www-form-urlencoded',
@@ -15,4 +15,4 @@ function authServiceLogin(username, password){
   return httpClient.post(url, data, { headers: headers });
 }
 
-export default authServiceLogin;
+export default authLogin;

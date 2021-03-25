@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import authServiceLogin from '../services/authServiceLogin';
+import authLogin from '../services/authLogin';
 import jwt_decode from 'jwt-decode';
 import httpClient from '../services/httpClient';
 
@@ -12,13 +12,13 @@ export const AuthProvider = ({ children }) => {
     const userStoraged = localStorage.getItem('@username');
     const tokenStoraged = localStorage.getItem('@access_token');
     if ( userStoraged && tokenStoraged ) {
-      setUser(JSON.parse(userStoraged));
+      setUser(userStoraged);
       httpClient.defaults.headers.Authorization = `Bearer ${tokenStoraged}`;
     }
   }, []);
   
   async function Login(username, password) {
-    await authServiceLogin(username, password)
+    await authLogin(username, password)
     .then(
       response => {
         const access_token = JSON.stringify(response);
