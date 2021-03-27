@@ -12,8 +12,12 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const userStoraged = localStorage.getItem('@username');
     const tokenStoraged = localStorage.getItem('@access_token');
-    if ( userStoraged && tokenStoraged ) {
+    const rolesStoraged = localStorage.getItem('@roles');
+    if ( tokenStoraged && userStoraged ) {
       setUser(userStoraged);
+      if ( rolesStoraged ) {
+        setRoles(rolesStoraged);
+      }
       httpApiClient.defaults.headers.Authorization = `Bearer ${JSON.parse(tokenStoraged).data.access_token}`;
     }
   }, []);
@@ -36,10 +40,11 @@ export const AuthProvider = ({ children }) => {
           rolesUsuario.push('administrador');
         }
         setRoles(rolesUsuario);
+        localStorage.setItem('@roles', roles);
         httpApiClient.defaults.headers.Authorization = `Bearer ${response.data.access_token}`;
       }).catch(
         error => {
-          console.log(error);
+          throw error;
       });
   }
   
@@ -47,11 +52,12 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem('@access_token');
     localStorage.removeItem('@username');
+    localStorage.removeItem('@roles');
     httpApiClient.defaults.headers.Authorization = 'Bearer ';
   }
   
   return (
-    <AuthContext.Provider value={{ signed: Boolean(user), user, roles, Login, Logout }}>
+    <AuthContext.Provider value={{ signed: Boolean(user && user!=="null"), user, roles, Login, Logout }}>
       {children}
     </AuthContext.Provider>
   );

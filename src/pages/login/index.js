@@ -5,10 +5,15 @@ const Login = () => {
   const { Login } = useAuth();
   const [ usuario, setUsuario ] = useState('');
   const [ senha, setSenha ] = useState('');
+  const [ mensagem, setMensagem ] = useState(''); 
 
   async function handleLogin(event) {
     event.preventDefault();
-    Login(usuario, senha);
+      Login(usuario, senha).then(response => {
+        setMensagem('Logado com sucesso');
+      }).catch(error => {
+        setMensagem('Nome de usuário ou senha incorreta(o)!');
+      });
   }
 
   return(
@@ -31,6 +36,7 @@ const Login = () => {
           <div>
             <input type="submit" value="Logar" />
           </div>
+          <p>{mensagem}</p>
         </form>
       </div>
     </div>
