@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const clientId = 'springboot-testes';
 
-export const clientSecret = 'a9006e2f-2657-47ac-9b12-6b4b20391772';
+export const clientSecret = 'd170ea84-2318-4de0-b094-092b738736e9';
 
 export const realm = 'reinolocal-testes';
 

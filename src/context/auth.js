@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import authLogin from '../services/authLogin';
 import jwt_decode from 'jwt-decode';
 import httpApiClient from '../services/httpApiClient';
+import { clientId } from '../services/httpAuthClient';
 
 const AuthContext = React.createContext({});
 
@@ -31,12 +32,12 @@ export const AuthProvider = ({ children }) => {
         const username = jwt_decode(response.data.access_token).preferred_username;
         setUser(username);
         localStorage.setItem('@username', user);
-        const realmRoles = jwt_decode(response.data.access_token).realm_access.roles;
+        const realmRoles = jwt_decode(response.data.access_token).resource_access[clientId].roles;
         const rolesUsuario = [];
-        if(realmRoles.includes('app-user')){
+        if(realmRoles.includes('user')){
           rolesUsuario.push('usuario');
         }
-        if(realmRoles.includes('app-admin')){
+        if(realmRoles.includes('admin')){
           rolesUsuario.push('administrador');
         }
         setRoles(rolesUsuario);
