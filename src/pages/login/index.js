@@ -5,15 +5,22 @@ const Login = () => {
   const { Login } = useAuth();
   const [ usuario, setUsuario ] = useState('');
   const [ senha, setSenha ] = useState('');
-  const [ mensagem, setMensagem ] = useState(''); 
+  const [ mensagem, setMensagem ] = useState('');
 
-  async function handleLogin(event) {
+  const [ carregando, setCarregando ] = useState(false);
+
+  function handleLogin(event) {
     event.preventDefault();
-      Login(usuario, senha).then(response => {
+    setMensagem('');
+    setCarregando(true);
+    Login(usuario, senha).then(response => {
+      if(carregando){
         setMensagem('Logado com sucesso');
-      }).catch(error => {
-        setMensagem('Nome de usuário ou senha incorreta(o)!');
-      });
+      }
+    }).catch(error => {
+      setMensagem('Nome de usuário ou senha incorreta(o)!');
+    });
+    setCarregando(false);
   }
 
   return(

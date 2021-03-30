@@ -1,12 +1,17 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 
 import Home from '../pages/home';
+import BuscarUsuario from '../pages/usuarios/buscar';
+import CadastrarUsuario from '../pages/usuarios/cadastrar';
 
 const OtherRoutes = () => {
   return(
     <BrowserRouter>
-      <Route path="/" component={Home} />
+      <Route path="/"><Redirect to="/home" /></Route>
+      <Route path="/home" component={Home} />
+      <Route path="/usuarios/buscar" component={BuscarUsuario} />
+      <Route path="/usuarios/cadastrar" component={CadastrarUsuario} />
     </BrowserRouter>
   );
 }

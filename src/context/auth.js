@@ -21,32 +21,32 @@ export const AuthProvider = ({ children }) => {
       }
       httpApiClient.defaults.headers.Authorization = `Bearer ${JSON.parse(tokenStoraged).data.access_token}`;
     }
-  }, []);
+  },[]);
   
   async function Login(username, password) {
     await authLogin(username, password)
-    .then(
-      response => {
-        const access_token = JSON.stringify(response);
-        localStorage.setItem('@access_token', access_token);
-        const username = jwt_decode(response.data.access_token).preferred_username;
-        setUser(username);
-        localStorage.setItem('@username', user);
-        const realmRoles = jwt_decode(response.data.access_token).resource_access[clientId].roles;
-        const rolesUsuario = [];
-        if(realmRoles.includes('user')){
-          rolesUsuario.push('usuario');
-        }
-        if(realmRoles.includes('admin')){
-          rolesUsuario.push('administrador');
-        }
-        setRoles(rolesUsuario);
-        localStorage.setItem('@roles', roles);
-        httpApiClient.defaults.headers.Authorization = `Bearer ${response.data.access_token}`;
+      .then(
+        response => {
+          const access_token = JSON.stringify(response);
+          localStorage.setItem('@access_token', access_token);
+          const username = jwt_decode(response.data.access_token).preferred_username;
+          setUser(username);
+          localStorage.setItem('@username', user);
+          const realmRoles = jwt_decode(response.data.access_token).resource_access[clientId].roles;
+          const rolesUsuario = [];
+          if(realmRoles.includes('user')){
+            rolesUsuario.push('usuario');
+          }
+          if(realmRoles.includes('admin')){
+            rolesUsuario.push('administrador');
+          }
+          setRoles(rolesUsuario);
+          localStorage.setItem('@roles', roles);
+          httpApiClient.defaults.headers.Authorization = `Bearer ${response.data.access_token}`;
       }).catch(
-        error => {
-          throw error;
-      });
+          error => {
+            throw error;
+    });
   }
   
   function Logout(){

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/auth';
 import { getTesteAdministrador, getTesteTodosUsuarios, getTesteUsuario } from '../../services/apiTestesService';
 
@@ -9,6 +10,8 @@ const Home = () => {
     respostaAdmin: '',
     respostaTodos: ''
   });
+
+  const isAdmin = roles.includes('administrador');
   
   function handleLogout(){
     Logout();
@@ -80,6 +83,14 @@ const Home = () => {
           <span>{respostas.respostaTodos}</span>
         </div>
       </div>
+      { isAdmin &&
+        <>
+          <br /> 
+          <Link to="/usuarios/buscar">Pesquisa de usuários</Link>
+          <br />
+          <Link to="/usuarios/cadastrar">Cadastrar Usuário</Link>
+        </>
+      }
     </div>
   );
 }
