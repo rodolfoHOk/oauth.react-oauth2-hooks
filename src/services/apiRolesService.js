@@ -2,7 +2,7 @@ import httpApiClient from './httpApiClient';
 
 url = '/roles';
 
-export function getTodos(){
+export function getTodosRoles(){
   return httpApiClient.get(url);
 }
 

@@ -2,7 +2,7 @@ import httpApiClient from './httpApiClient';
 
 url = '/grupos';
 
-export function getTodos(){
+export function getTodosGrupos(){
   return httpApiClient.get(url);
 }
 

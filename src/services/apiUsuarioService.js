@@ -2,15 +2,15 @@ import httpApiClient from './httpApiClient';
 
 const url = '/usuarios';
 
-export function getTodos(){
+export function getTodosUsuarios(){
   return httpApiClient.get(url);
 }
 
-export function getPorId(id){
+export function getUsuarioPorId(id){
   return httpApiClient.get(`${url}/${id}`);
 }
 
-export function getPorUsername(username){
+export function getUsuariosPorUsername(username){
   return httpApiClient.get(`${url}/nomeusuario/${username}`);
 }
 

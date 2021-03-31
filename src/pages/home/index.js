@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/auth';
 import { getTesteAdministrador, getTesteTodosUsuarios, getTesteUsuario } from '../../services/apiTestesService';
+import NaoAutorizado from '../naoAutorizado';
 
 const Home = () => {
-  const { user, roles, Logout } = useAuth();
+  const { signed, user, roles, Logout } = useAuth();
   const [respostas, setRespostas] = useState({
     respostaUsuario: '',
     respostaAdmin: '',
@@ -56,7 +57,9 @@ const Home = () => {
     });
   }
 
-  return(
+  return( 
+    signed
+    ?
     <div>
       <h1>Home</h1>
       <div>
@@ -88,10 +91,12 @@ const Home = () => {
           <br /> 
           <Link to="/usuarios/buscar">Pesquisa de usuários</Link>
           <br />
-          <Link to="/usuarios/cadastrar">Cadastrar Usuário</Link>
+          <Link to="/usuarios/cadastrar">Cadastrar usuário</Link>
         </>
       }
     </div>
+    :
+    <NaoAutorizado/>
   );
 }
 

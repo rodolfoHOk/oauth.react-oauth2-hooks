@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../../context/auth';
+import { postCriarUsuario } from '../../../services/apiUsuarioService';
+import NaoAutorizado from '../../naoAutorizado';
 
 const CadastrarUsuario = () => {
   
@@ -10,17 +12,19 @@ const CadastrarUsuario = () => {
     username: '',
     password: '',
   });
-
   const [ passwordRepeticao , setPasswordRepeticao ] = useState('');
-
   const [ mensagem, setMensagem ] = useState('');
   
   function cadastrar(event){
     event.preventDefault();
     setMensagem('');
     if(usuario.password === passwordRepeticao){
-      setMensagem('Cadastrado com sucesso!')
-      console.log(usuario);
+      postCriarUsuario(usuario)
+        .then(response => {
+          setMensagem('Usuário cadastrado com sucesso.');
+        }).catch(error => {
+          setMensagem('Erro ao tentar cadastrar usuário!');
+        });
     } else {
       setMensagem('Campos de senha não são iguais!');
     }
@@ -64,9 +68,7 @@ const CadastrarUsuario = () => {
           </form>
         </div>
         :
-        <div>
-          <h3>Não Autorizado!</h3>
-        </div>
+        <NaoAutorizado admin />
       }
     </>
   );
